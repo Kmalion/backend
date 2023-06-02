@@ -1,0 +1,29 @@
+[
+  {
+    "cid": "d7epbogbnk6",
+    "products": [
+      {
+        "pid": "12345sdsjh",
+        "title": "producto en carrito 1",
+        "description": "Prueba de Post",
+        "price": 35,
+        "thumbnail": "Sin Imagen",
+        "code": "abc1342",
+        "stock": 3
+      },
+      {
+        "pid": "12sjgbhwy7sdsjh",
+        "title": "producto en carrito 2",
+        "description": "Prueba de Post",
+        "price": 35,
+        "thumbnail": "Sin Imagen",
+        "code": "abc1342",
+        "stock": 3
+      },
+      {
+        "product": "12345sdsjh",
+        "quantity": 3
+      }
+    ]
+  }
+]

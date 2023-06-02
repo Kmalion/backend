@@ -21,8 +21,8 @@ async addProduct(newProduct) {
     return; // Salir de la función para evitar la ejecución adicional
   }
 
-  let id = Math.random().toString(30).substring(2);
-  let newProducto = { id, ...newProduct };
+  let pid = Math.random().toString(30).substring(2);
+  let newProducto = { pid, ...newProduct };
   
   productParse.push(newProducto);
   

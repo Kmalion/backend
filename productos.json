@@ -1,92 +1,101 @@
 [
-    {
-        "id": "1",
-        "title": "producto 1",
-        "description": "Este es otro producto de prueba",
-        "price": 3400,
-        "thumbnail": "Sin Imagen",
-        "code": "abc132341",
-        "stock": 30
-    },
-    {
-        "id": "2",
-        "title": "producto  2",
-        "description": "Este es otro producto de prueba",
-        "price": 300,
-        "thumbnail": "Sin Imagen",
-        "code": "abc232131",
-        "stock": 3
-    },
-    {
-        "id": "3",
-        "title": "producto 3",
-        "description": "Este es otro producto de prueba",
-        "price": 3700,
-        "thumbnail": "Sin Imagen",
-        "code": "abc3213",
-        "stock": 300
-    },
-    {
-        "id": "4",
-        "title": "producto 4",
-        "description": "Este es otro producto de prueba",
-        "price": 3300,
-        "thumbnail": "Sin Imagen",
-        "code": "abc136633",
-        "stock": 6
-    },
-    {
-        "id": "5",
-        "title": "producto 5",
-        "description": "Este es otro producto de prueba",
-        "price": 3100,
-        "thumbnail": "Sin Imagen",
-        "code": "abc13983",
-        "stock": 5
-    },
-    {
-        "id": "6",
-        "title": "producto 6",
-        "description": "Este es otro producto de prueba",
-        "price": 3500,
-        "thumbnail": "Sin Imagen",
-        "code": "abc1345",
-        "stock": 4
-    },
-    {
-        "id": "7",
-        "title": "producto  7",
-        "description": "Este es otro producto de prueba",
-        "price": 400,
-        "thumbnail": "Sin Imagen",
-        "code": "abc173",
-        "stock": 2
-    },
-    {
-        "id": "8",
-        "title": "producto 8",
-        "description": "Este es otro producto de prueba",
-        "price": 200,
-        "thumbnail": "Sin Imagen",
-        "code": "abc193",
-        "stock": 1
-    },
-    {
-        "id": "9",
-        "title": "producto  9",
-        "description": "Este es otro producto de prueba",
-        "price": 100,
-        "thumbnail": "Sin Imagen",
-        "code": "abc183",
-        "stock": 8
-    },
-    {
-        "id": "10",
-        "title": "producto  10",
-        "description": "Este es otro producto de prueba",
-        "price": 3000,
-        "thumbnail": "Sin Imagen",
-        "code": "abc1335",
-        "stock": 2
-    }
+  {
+    "id": "1",
+    "title": "producto 1",
+    "category": "herramienta",
+    "description": "Este es otro producto de prueba",
+    "price": 3400,
+    "thumbnail": "Sin Imagen",
+    "code": "abc132341",
+    "status": true,
+    "stock": 30
+  },
+  {
+    "id": "3",
+    "title": "producto 3",
+    "category": "herramienta",
+    "description": "Este es otro producto de prueba",
+    "price": 3700,
+    "thumbnail": "Sin Imagen",
+    "code": "abc3213",
+    "status": true,
+    "stock": 300
+  },
+  {
+    "id": "4",
+    "title": "producto 4",
+    "category": "herramienta",
+    "description": "Este es otro producto de prueba",
+    "price": 3300,
+    "thumbnail": "Sin Imagen",
+    "code": "abc136633",
+    "status": true,
+    "stock": 6
+  },
+  {
+    "id": "5",
+    "title": "producto 5",
+    "category": "herramienta",
+    "description": "Este es otro producto de prueba",
+    "price": 3100,
+    "thumbnail": "Sin Imagen",
+    "code": "abc13983",
+    "status": true,
+    "stock": 5
+  },
+  {
+    "id": "6",
+    "title": "producto 6",
+    "category": "herramienta",
+    "description": "Este es otro producto de prueba",
+    "price": 3500,
+    "thumbnail": "Sin Imagen",
+    "code": "abc1345",
+    "status": true,
+    "stock": 4
+  },
+  {
+    "id": "7",
+    "title": "producto  7",
+    "category": "herramienta",
+    "description": "Este es otro producto de prueba",
+    "price": 400,
+    "thumbnail": "Sin Imagen",
+    "code": "abc173",
+    "status": true,
+    "stock": 2
+  },
+  {
+    "id": "8",
+    "title": "producto 8",
+    "category": "herramienta",
+    "description": "Este es otro producto de prueba",
+    "price": 200,
+    "thumbnail": "Sin Imagen",
+    "code": "abc193",
+    "status": true,
+    "stock": 1
+  },
+  {
+    "id": "9",
+    "title": "producto  9",
+    "category": "herramienta",
+    "description": "Este es otro producto de prueba",
+    "price": 100,
+    "thumbnail": "Sin Imagen",
+    "code": "abc183",
+    "status": true,
+    "stock": 8
+  },
+  {
+    "id": "10",
+    "title": "producto ACTUALIZADO",
+    "category": "herramienta",
+    "description": "Prueba de Post",
+    "price": 35,
+    "thumbnail": "Sin Imagen",
+    "code": "abc1342",
+    "status": true,
+    "stock": 3
+  }
 ]
