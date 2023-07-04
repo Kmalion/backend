@@ -2,24 +2,25 @@
 <html>
 <head>
   <title>Home</title>
-  <script src="/js/index.js"></script>
 </head>
 <body>
-  <h1>Home</h1>
-  <h2>Lista de todos los productos</h2> 
-    <ul>
-    {{#each products}}
-      <li>
-        <h3>{{id}}</h3>
-        <p>Titulo: {{title}}</p>
-        <p>Descripción: {{description}}</p>
-        <p>Precio: {{price}}</p>
-        <p>Imagen: {{thumbnail}}</p>
-        <p>Codigo: {{code}}</p>
-        <p>Estado: {{status}}</p>
-        <p>Stock: {{stock}}</p>
+  <div class="container">
+    <h1>Home</h1>
+    <h2>Lista de todos los productos</h2>
+    <ul class="list-group">
+      {{#each products}}
+      <li class="list-group-item">
+        <p class="title">Id: {{this._id}}</p>
+        <p>Titulo: {{this.title}}</p>
+        <p>Descripción: {{this.description}}</p>
+        <p>Precio: {{this.price}}</p>
+        <p>Imagen: {{this.thumbnail}}</p>
+        <p>Codigo: {{this.code}}</p>
+        <p>Estado: {{this.status}}</p>
+        <p>Stock: {{this.stock}}</p>
       </li>
-    {{/each}}
-  </ul>
+      {{/each}}
+    </ul>
+  </div>
 </body>
 </html>
