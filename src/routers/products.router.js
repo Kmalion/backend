@@ -3,36 +3,56 @@ const router = express.Router();
 const Products = require('../dao/mongo/models/modelProducts');
 
 // Rutas de productos
-router.get('/products', (req, res) => {
-  Products.find()
-    .then(products => {
-      if (products.length > 0) {
-        res.send({ products });
-      } else {
-        return res.status(204).send('No se encuentran productos');
-      }
-    })
-    .catch(err => {
-      return res.status(500).send(err);
-    });
-});
 
-// Obtener todos los productos y límites
-router.get('/api/products', async (req, res) => {
+
+router.get('/products', async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit);
-    let productos = await Products.find();
+    const category = req.query.category; // Obtener el valor del parámetro 'category' de la URL
+    const page = parseInt(req.query.page); // Obtener el valor del parámetro 'page' de la URL y convertirlo a un número entero
+    const limit = req.query.limit ? parseInt(req.query.limit) : undefined;
+    const sort = req.query.sort; // Obtener el valor del parámetro 'sort' de la URL
 
-    if (!isNaN(limit)) {
-      productos = productos.slice(0, limit);
+    let options = {};
+
+    if (category) {
+      options.category = category;
     }
 
-    res.json(productos);
+    if (sort) {
+      options.sort = sort;
+    }
+
+    if (limit) {
+      options.limit = limit;
+
+      if (page) {
+        options.page = page;
+      }
+    }
+
+    const result = await Products.paginate({}, options); // Realiza la consulta de paginación
+
+    if (result.docs.length > 0) {
+      const products = result.docs.map(doc => doc.toObject({ virtuals: true }));
+
+      res.render('home', { 
+        products,
+        hasNextPage: result.hasNextPage,
+        hasPrevPage: result.hasPrevPage,
+        nextPage: result.nextPage,
+        prevPage: result.prevPage
+      });
+    } else {
+      return res.status(204).send('No se encuentran productos');
+    }
   } catch (error) {
     console.error('Error al obtener los productos:', error);
     res.status(500).json({ error: 'Error al obtener los productos' });
   }
 });
+
+
+
 
 // Obtener producto por ID
 router.get('/api/products/:id', async (req, res) => {

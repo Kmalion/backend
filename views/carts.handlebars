@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Carritos</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Carritos</h1>
+    <h2>Lista de todos los carritos</h2>
+    <ul class="list-group">
+      {{#each carts}}
+      <li class="list-group-item">
+        <p class="title">ID del Carrito: {{_id}}</p>
+        <p>Fecha: {{date}}</p>
+        <p>Productos:</p>
+        <ul>
+          {{#each products}}
+          <li>
+            <p>ID del Producto: {{product._id}}</p>
+            <p>Título: {{product.title}}</p>
+            <p>Descripción: {{product.description}}</p>
+            <p>Categoría: {{product.category}}</p>
+            <p>Precio: ${{product.price}}</p>
+            <p>Cantidad: {{quantity}}</p>
+            <p>Imagen: {{product.thumbnail}}</p>
+            <p>Estado: {{product.status}}</p>
+            <form action="/api/carts/{{../_id}}/products/{{product._id}}" method="POST" onsubmit="eliminarProducto(event)">
+              <input type="hidden" name="_method" value="DELETE">
+              <button class="btn btn-danger" type="submit">Eliminar</button>
+            </form>
+            <form action="/api/carts/{{../_id}}/products/{{product._id}}" method="POST" onsubmit="actualizarCantidad(event)">
+              <input type="hidden" name="_method" value="PUT">
+              <input type="number" name="quantity" value="{{quantity}}" min="1" max="10">
+              <button class="btn btn-primary" type="submit">Actualizar</button>
+            </form>
+          </li>
+          {{/each}}
+        </ul>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <script>
+    function eliminarProducto(event) {
+      event.preventDefault();
+      const form = event.target;
+      const url = form.getAttribute('action');
+
+      fetch(url, {
+        method: 'DELETE'
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message);
+        // Recargar la página para actualizar la lista de carritos
+        location.reload();
+      })
+      .catch(error => {
+        console.error('Error al eliminar el producto del carrito:', error);
+      });
+    }
+
+    function actualizarCantidad(event) {
+      event.preventDefault();
+      const form = event.target;
+      const url = form.getAttribute('action');
+      const formData = new FormData(form);
+      
+      const quantity = formData.get('quantity'); // Obtener el valor del campo 'quantity'
+      console.log('Cantidad:', quantity); // Mostrar el valor en la consola
+
+      fetch(url, {
+        method: 'PUT',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Respuesta del servidor:', data);
+          // Recargar la página para actualizar la lista de carritos
+          location.reload();
+        })
+        .catch(error => {
+          console.error('Error al actualizar la cantidad del producto en el carrito:', error);
+        });
+    }
+  </script>
+</body>
+</html>

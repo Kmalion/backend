@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', routerHome)
 app.use('/', realTimeProductsRouter);
 app.use('/chat', chatRouter)
-
+app.use('/products', productsRouter);
 
 
 

@@ -10,6 +10,9 @@ class CartManager {
   ///////CREA CARRITO/////////////
   async addCart(newCart, products) {
     try {
+      const currentDate = new Date().toISOString();
+  
+      newCart.date = currentDate;
       newCart.products = products;
   
       const cart = new Cart(newCart);

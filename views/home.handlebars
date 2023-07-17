@@ -5,7 +5,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Home</h1>
+    <h1>Productos</h1>
     <h2>Lista de todos los productos</h2>
     <ul class="list-group">
       {{#each products}}
@@ -13,14 +13,25 @@
         <p class="title">Id: {{this._id}}</p>
         <p>Titulo: {{this.title}}</p>
         <p>Descripción: {{this.description}}</p>
+        <p>Categoria: {{this.category}}</p>
         <p>Precio: {{this.price}}</p>
         <p>Imagen: {{this.thumbnail}}</p>
         <p>Codigo: {{this.code}}</p>
         <p>Estado: {{this.status}}</p>
         <p>Stock: {{this.stock}}</p>
+        <a href="/cart/add/{{this._id}}" class="btn btn-primary">Agregar al carrito</a>
       </li>
       {{/each}}
     </ul>
+    
+    {{#if hasNextPage}}
+    <a href="/products?page={{nextPage}}&limit=10" class="btn btn-primary">Siguiente</a>
+    {{/if}}
+    
+    {{#if hasPrevPage}}
+    <a href="/products?page={{prevPage}}&limit=10" class="btn btn-primary">Anterior</a>
+    {{/if}}
+    
   </div>
 </body>
 </html>

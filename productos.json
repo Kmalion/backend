@@ -1,8 +1,7 @@
 [
   {
-    "id": "1",
     "title": "producto 1",
-    "category": "herramienta",
+    "category": "repuestos",
     "description": "Este es otro producto de prueba",
     "price": 3400,
     "thumbnail": "Sin Imagen",
@@ -11,9 +10,8 @@
     "stock": 30
   },
   {
-    "id": "2566244",
-    "title": "producto 3",
-    "category": "herramienta",
+    "title": "producto 2",
+    "category": "herramientas",
     "description": "Este es otro producto de prueba",
     "price": 3700,
     "thumbnail": "Sin Imagen",
@@ -22,9 +20,8 @@
     "stock": 300
   },
   {
-    "id": "4",
-    "title": "producto 4",
-    "category": "herramienta",
+    "title": "producto 3",
+    "category": "repuestos",
     "description": "Este es otro producto de prueba",
     "price": 3300,
     "thumbnail": "Sin Imagen",
@@ -33,9 +30,8 @@
     "stock": 6
   },
   {
-    "id": "5",
-    "title": "producto 5",
-    "category": "herramienta",
+    "title": "producto 4",
+    "category": "herramientas",
     "description": "Este es otro producto de prueba",
     "price": 3100,
     "thumbnail": "Sin Imagen",
@@ -44,9 +40,8 @@
     "stock": 5
   },
   {
-    "id": "6",
-    "title": "producto 6",
-    "category": "herramienta",
+    "title": "producto 5",
+    "category": "equipos",
     "description": "Este es otro producto de prueba",
     "price": 3500,
     "thumbnail": "Sin Imagen",
@@ -55,9 +50,8 @@
     "stock": 4
   },
   {
-    "id": "7",
-    "title": "producto  7",
-    "category": "herramienta",
+    "title": "producto  6",
+    "category": "herramientas",
     "description": "Este es otro producto de prueba",
     "price": 400,
     "thumbnail": "Sin Imagen",
@@ -66,9 +60,8 @@
     "stock": 2
   },
   {
-    "id": "8",
-    "title": "producto 8",
-    "category": "herramienta",
+    "title": "producto 7",
+    "category": "herramientas",
     "description": "Este es otro producto de prueba",
     "price": 200,
     "thumbnail": "Sin Imagen",
@@ -77,9 +70,8 @@
     "stock": 1
   },
   {
-    "id": "9",
-    "title": "producto  9",
-    "category": "herramienta",
+    "title": "producto  8",
+    "category": "herramientas",
     "description": "Este es otro producto de prueba",
     "price": 100,
     "thumbnail": "Sin Imagen",
@@ -88,9 +80,8 @@
     "stock": 8
   },
   {
-    "id": "10",
-    "title": "producto ACTUALIZADO",
-    "category": "herramienta",
+    "title": "producto 9",
+    "category": "repuestos",
     "description": "Prueba de Post",
     "price": 35,
     "thumbnail": "Sin Imagen",
