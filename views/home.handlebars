@@ -2,27 +2,37 @@
 <html>
 <head>
   <title>Home</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .product-card {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>Productos</h1>
     <h2>Lista de todos los productos</h2>
-    <ul class="list-group">
+    <div class="row">
       {{#each products}}
-      <li class="list-group-item">
-        <p class="title">Id: {{this._id}}</p>
-        <p>Titulo: {{this.title}}</p>
-        <p>Descripción: {{this.description}}</p>
-        <p>Categoria: {{this.category}}</p>
-        <p>Precio: {{this.price}}</p>
-        <p>Imagen: {{this.thumbnail}}</p>
-        <p>Codigo: {{this.code}}</p>
-        <p>Estado: {{this.status}}</p>
-        <p>Stock: {{this.stock}}</p>
-        <a href="/cart/add/{{this._id}}" class="btn btn-primary">Agregar al carrito</a>
-      </li>
+      <div class="col-md-4">
+        <div class="card product-card">
+          <div class="card-body">
+            <h5 class="card-title">Id: {{this._id}}</h5>
+            <p class="card-text">Titulo: {{this.title}}</p>
+            <p class="card-text">Descripción: {{this.description}}</p>
+            <p class="card-text">Categoria: {{this.category}}</p>
+            <p class="card-text">Precio: {{this.price}}</p>
+            <p class="card-text">Imagen: {{this.thumbnail}}</p>
+            <p class="card-text">Codigo: {{this.code}}</p>
+            <p class="card-text">Estado: {{this.status}}</p>
+            <p class="card-text">Stock: {{this.stock}}</p>
+            <a href="/cart/add/{{this._id}}" class="btn btn-primary">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
       {{/each}}
-    </ul>
+    </div>
     
     {{#if hasNextPage}}
     <a href="/products?page={{nextPage}}&limit=10" class="btn btn-primary">Siguiente</a>

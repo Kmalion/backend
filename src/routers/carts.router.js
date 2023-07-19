@@ -133,7 +133,8 @@ router.put('/api/carts/:cid/products/:pid', async (req, res) => {
     }
 
     // Buscar el producto en el carrito por su ID
-    const product = cart.products.find(item => item.product.toString() === productId);
+    const product = cart.products.find(item => item.product.equals(productId));
+
 
     console.log('Producto encontrado:', product);
 
@@ -160,6 +161,7 @@ router.put('/api/carts/:cid/products/:pid', async (req, res) => {
     res.status(500).json({ error: 'Error al actualizar la cantidad del producto en el carrito' });
   }
 });
+
 
 // POST: Agregar productos al carrito por ID
 router.post('/:cid/product/:pid', async (req, res) => {

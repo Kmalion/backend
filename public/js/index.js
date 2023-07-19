@@ -102,8 +102,7 @@ document.querySelectorAll('.update-quantity').forEach(form => {
         const productId = form.dataset.productId;
         const quantityInput = form.querySelector('.quantity-input');
         const quantity = quantityInput.value;
-        console.log(quantity)
-        console.log(quantity)
+
         try {
             const response = await fetch(`/api/carts/${cartId}/products/${productId}`, {
                 method: 'PUT',
@@ -125,4 +124,5 @@ document.querySelectorAll('.update-quantity').forEach(form => {
         }
     });
 });
+
 
