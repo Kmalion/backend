@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuario</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Registro de Usuario</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="registerForm" action="/auth/register-auth" method="post">
+                            <div class="mb-3">
+                                <label for="first_name" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Edad</label>
+                                <input type="number" class="form-control" id="age" name="age" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Rol</label>
+                                <select class="form-control" id="role" name="role" required>
+                                    <option value="admin">Admin</option>
+                                    <option value="usuario">Usuario</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Registrarse</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- JavaScript para capturar los datos del formulario y enviarlos al servidor -->
+<script>
+    const registerForm = document.getElementById('registerForm');
+
+    registerForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = {
+            first_name: document.getElementById('first_name').value,
+            last_name: document.getElementById('last_name').value,
+            email: document.getElementById('email').value,
+            age: document.getElementById('age').value,
+            password: document.getElementById('password').value,
+            role: document.getElementById('role').value
+        };
+
+        console.log(formData); // Imprime el objeto con los datos del formulario en la consola
+
+        try {
+            const response = await fetch('/auth/register-auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData) // Envía los datos como JSON al servidor
+            });
+
+            if (response.ok) {
+                // Si el registro es exitoso, redirige al usuario a la página de inicio de sesión
+                window.location.href = '/view/login';
+            } else {
+                // Si hay un error, muestra un mensaje de error en el formulario
+                const errorMessage = await response.text();
+                alert(errorMessage);
+            }
+        } catch (error) {
+            console.error('Error al enviar el formulario:', error);
+            alert('Error al enviar el formulario');
+        }
+    });
+</script>
+
+</html>
+

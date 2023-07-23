@@ -1,55 +1,71 @@
 const express = require('express');
 const router = express.Router();
 const Products = require('../dao/mongo/models/modelProducts');
+const routerSession = require('../routers/session.router')
 
 // Rutas de productos
 
 
 router.get('/products', async (req, res) => {
   try {
-    const category = req.query.category; // Obtener el valor del parámetro 'category' de la URL
-    const page = parseInt(req.query.page); // Obtener el valor del parámetro 'page' de la URL y convertirlo a un número entero
-    const limit = req.query.limit ? parseInt(req.query.limit) : undefined;
-    const sort = req.query.sort; // Obtener el valor del parámetro 'sort' de la URL
-
-    let options = {};
-
-    if (category) {
-      options.category = category;
-    }
-
-    if (sort) {
-      options.sort = sort;
-    }
-
-    if (limit) {
-      options.limit = limit;
-
-      if (page) {
-        options.page = page;
+      // Aquí agregamos la lógica para obtener el nombre del usuario en sesión y su rol
+      let userLoggedIn = {};
+      if (req.session.email) {
+          userLoggedIn = {
+              first_name: req.session.first_name,
+              last_name: req.session.last_name,
+              email: req.session.email,
+              age: req.session.age,
+              rol: req.session.role
+          };
       }
-    }
 
-    const result = await Products.paginate({}, options); // Realiza la consulta de paginación
+      const category = req.query.category;
+      const page = parseInt(req.query.page);
+      const limit = req.query.limit ? parseInt(req.query.limit) : undefined;
+      const sort = req.query.sort;
 
-    if (result.docs.length > 0) {
-      const products = result.docs.map(doc => doc.toObject({ virtuals: true }));
+      let options = {};
 
-      res.render('home', { 
-        products,
-        hasNextPage: result.hasNextPage,
-        hasPrevPage: result.hasPrevPage,
-        nextPage: result.nextPage,
-        prevPage: result.prevPage
-      });
-    } else {
-      return res.status(204).send('No se encuentran productos');
-    }
+      if (category) {
+          options.category = category;
+      }
+
+      if (sort) {
+          options.sort = sort;
+      }
+
+      if (limit) {
+          options.limit = limit;
+
+          if (page) {
+              options.page = page;
+          }
+      }
+
+      const result = await Products.paginate({}, options); // Realiza la consulta de paginación
+
+      if (result.docs.length > 0) {
+          const products = result.docs.map(doc => doc.toObject({ virtuals: true }));
+
+          // Aquí pasamos los datos del usuario en sesión a la vista
+          res.render('home', {
+              products,
+              userLoggedIn, // Pasamos el objeto con los datos del usuario en sesión a la vista
+              hasNextPage: result.hasNextPage,
+              hasPrevPage: result.hasPrevPage,
+              nextPage: result.nextPage,
+              prevPage: result.prevPage
+          });
+      } else {
+          return res.status(204).send('No se encuentran productos');
+      }
   } catch (error) {
-    console.error('Error al obtener los productos:', error);
-    res.status(500).json({ error: 'Error al obtener los productos' });
+      console.error('Error al obtener los productos:', error);
+      res.status(500).json({ error: 'Error al obtener los productos' });
   }
 });
+
 
 
 

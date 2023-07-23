@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require('express-session')
+const FileStore = require ('session-file-store')(session)
 const app = express();
 const http = require('http')
 const handlebars = require('express-handlebars')
@@ -8,8 +10,40 @@ const chatRouter = require ('./src/routers/chat.router')
 const routerHome = require ('./src/routers/home.router')
 const Chat = require ('./src/dao/mongo/models/modelChat')
 const realTimeProductsRouter = require ('./src/routers/realTimeProducts.router.js')
+const routerSession = require ('./src/routers/session.router.js')
+const routerAuth = require ('./src/routers/auth.router')
 const server = http.createServer(app)
 const Database = require('./db')
+const MongoStore = require('connect-mongo');
+
+
+//Middelware Sesiones
+app.use(session({
+  store: MongoStore.create({
+    mongoUrl:'mongodb+srv://kmalion57:1QA2WS3EDqwe@ecommerce.wohtmyg.mongodb.net/ecommerce'
+  }),
+  secret:'secretCoder',
+  resave:true,
+  saveUninitialized:true
+}))
+
+app.get('/setSession', (req, res)=>{
+  req.session.mensaje = 'Hola desde la sesion'
+  res.send('Sesion Creada')
+})
+
+app.get('/getSession', (req, res)=>{
+  res.send(req.session.mensaje)
+})
+
+app.get('/logout', (req, res)=>{
+  req.session.destroy(err =>{
+    if(err) res.send('Failed logout')
+    res.redirect('view/login')  
+  })
+})
+/////////////////////////////
+//Rutas
 
 
 // Config Socket IO
@@ -34,11 +68,13 @@ app.use('/', routerHome)
 app.use('/', realTimeProductsRouter);
 app.use('/chat', chatRouter)
 app.use('/products', productsRouter);
+app.use('/view', routerSession)
+app.use('/auth', routerAuth)
+app.use('/profile', routerSession)
 
 
 
-//Rutas
-app.use(productsRouter)
+app.use(productsRouter)     
 app.use(cartsRouter)
 app.use(chatRouter);
 

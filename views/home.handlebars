@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Home</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
     .product-card {
       margin-bottom: 20px;
     }
+
+    /* Estilos para la sección de perfil */
+    .profile-container {
+      top: 10px; /* Distancia desde la parte superior */
+      right: 10px; /* Distancia desde la parte derecha */
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
+ <div class="profile-container">
+   {{#if userLoggedIn.email}}
+     <p>Bienvenido, {{ userLoggedIn.first_name }}!</p>
+     <p>Rol: {{ userLoggedIn.rol }}</p>
+     <a href="/logout" class="btn btn-danger btn-sm">Cerrar sesión</a>
+   {{/if}}
+ </div>
+
   <div class="container">
     <h1>Productos</h1>
     <h2>Lista de todos los productos</h2>
