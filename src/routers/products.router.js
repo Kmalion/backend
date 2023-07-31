@@ -16,9 +16,11 @@ router.get('/products', async (req, res) => {
               last_name: req.session.last_name,
               email: req.session.email,
               age: req.session.age,
-              rol: req.session.role
+              role: req.session.role
           };
       }
+// Agregar console.log para verificar los datos del usuario
+console.log("Datos del usuario en sesión:", userLoggedIn);
 
       const category = req.query.category;
       const page = parseInt(req.query.page);
