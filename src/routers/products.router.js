@@ -10,13 +10,13 @@ router.get('/products', async (req, res) => {
   try {
       // Aquí agregamos la lógica para obtener el nombre del usuario en sesión y su rol
       let userLoggedIn = {};
-      if (req.session.email) {
+      if (req.user.email) {
           userLoggedIn = {
-              first_name: req.session.first_name,
-              last_name: req.session.last_name,
-              email: req.session.email,
-              age: req.session.age,
-              role: req.session.role
+            first_name: req.user.first_name,
+            last_name: req.user.last_name,
+            email: req.user.email,
+            age: req.user.age,
+            role: req.user.role
           };
       }
 // Agregar console.log para verificar los datos del usuario

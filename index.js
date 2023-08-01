@@ -2,8 +2,8 @@
 require('dotenv').config();
 
 const express = require('express');
+const flash = require('connect-flash');
 const session = require('express-session');
-const FileStore = require('session-file-store')(session);
 const app = express();
 const http = require('http');
 const handlebars = require('express-handlebars');
@@ -14,15 +14,15 @@ const routerHome = require('./src/routers/home.router');
 const Chat = require('./src/dao/mongo/models/modelChat');
 const realTimeProductsRouter = require('./src/routers/realTimeProducts.router.js');
 const routerSession = require('./src/routers/session.router.js');
-const routerAuth = require('./src/routers/auth.router');
 const server = http.createServer(app);
 const Database = require('./db');
 const MongoStore = require('connect-mongo');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
-const User = require ('./src/dao/mongo/models/modelUsers')
-const flash = require('express-flash');
+const passport = require('passport'); 
+
+
+// Se inicializa passport 
+
+require('./passport-config')
 
 //Middelware Sesiones
 app.use(
@@ -36,92 +36,35 @@ app.use(
   })
 );
 
-// Se inicializa passport 
 app.use(passport.initialize());
 app.use(passport.session());
 // Configurar connect-flash
 app.use(flash());
 
 
-// Configurar las estrategias de autenticación de Passport
-passport.use(
-  'login',
-  new LocalStrategy(
-    { passReqToCallback: true, usernameField: 'email' },
-    async (req, email, password, done) => {
-      try {
-        const user = await User.findOne({ email }).exec();
-
-        if (!user) {
-          return done(null, false, { message: 'Usuario no encontrado. Por favor, regístrese.' });
-        }
-
-        const passwordMatch = await bcrypt.compare(password, user.password);
-
-        if (!passwordMatch) {
-          return done(null, false, { message: 'Contraseña incorrecta. Por favor, verifique sus datos.' });
-        }
-
-        return done(null, user);
-      } catch (error) {
-        return done(error);
-      }
-    }
-  )
-);
-
-passport.use('login', new LocalStrategy(
-  { passReqToCallback: true, usernameField: 'email' },
-  async (req, email, password, done) => {
-    try {
-      const user = await User.findOne({ email }).exec();
-
-      if (!user) {
-        return done(null, false, { message: 'Usuario no encontrado. Por favor, regístrese.' });
-      }
-
-      const passwordMatch = await bcrypt.compare(password, user.password);
-
-      if (!passwordMatch) {
-        return done(null, false, { message: 'Contraseña incorrecta. Por favor, verifique sus datos.' });
-      }
-
-      return done(null, user);
-    } catch (error) {
-      return done(error);
-    }
-  }
-));
-
-// Configurar las funciones de serialización y deserialización de Passport
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  User.findById(id)
-    .then((user) => {
-      done(null, user);
-    })
-    .catch((err) => {
-      done(err, null);
-    });
+//Variables globales
+app.use((req, res, next)=>{
+  res.locals.error = req.flash('error');
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
 });
 
 
-app.get('/setSession', (req, res) => {
-  req.session.mensaje = 'Hola desde la sesion';
-  res.send('Sesion Creada');
-});
 
-app.get('/getSession', (req, res) => {
-  res.send(req.session.mensaje);
-});
+// app.get('/setSession', (req, res) => {
+//   req.session.mensaje = 'Hola desde la sesion';
+//   res.send('Sesion Creada');
+// });
+
+// app.get('/getSession', (req, res) => {
+//   res.send(req.session.mensaje);
+// });
 
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) res.send('Failed logout');
-    res.redirect('view/login');
+    res.redirect('/view/login');
   });
 });
 
@@ -134,6 +77,7 @@ const io = new Server(server);
 
 app.use(express.static(__dirname + '/public'));
 
+
 // Configuracion de HandleBars
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
@@ -143,14 +87,10 @@ app.set('views', __dirname + '/views');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', routerHome);
-app.use('/', realTimeProductsRouter);
 app.use('/chat', chatRouter);
 app.use('/products', productsRouter);
-app.use('/view', routerSession);
-app.use('/auth', routerAuth);
-app.use('/profile', routerSession);
-app.use('/', routerSession);
 
+app.use('/', routerSession);
 app.use(productsRouter);
 app.use(cartsRouter);
 app.use(chatRouter);

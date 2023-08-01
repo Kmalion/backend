@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <title>Home</title>
@@ -11,25 +12,28 @@
 
     /* Estilos para la sección de perfil */
     .profile-container {
-      top: 10px; /* Distancia desde la parte superior */
-      right: 10px; /* Distancia desde la parte derecha */
+      top: 10px;
+      /* Distancia desde la parte superior */
+      right: 10px;
+      /* Distancia desde la parte derecha */
       background-color: #f8f9fa;
       padding: 10px;
       border-radius: 5px;
     }
   </style>
 </head>
+
 <body>
-   <div class="container mt-5 centered-card">
-        <div class="profile-container">
-            <h1>Ecommerce</h1> <!-- Título centrado -->
-            {{#if userLoggedIn}}
-                <p>Bienvenido, {{ userLoggedIn.first_name }}!</p>
-                <p>Rol: {{ userLoggedIn.role }}</p> <!-- Verifica que el nombre de la propiedad sea 'role' -->
-                <a href="/logout" class="btn btn-danger btn-sm">Cerrar sesión</a>
-            {{/if}}
-        </div>
+  <div class="container mt-5 centered-card">
+    <div class="profile-container">
+      <h1>Ecommerce</h1> <!-- Título centrado -->
+      {{#if userLoggedIn}}
+      <p>Bienvenido, {{ userLoggedIn.first_name }}!</p>
+      <p>Rol: {{ userLoggedIn.role }}</p> <!-- Verifica que el nombre de la propiedad sea 'role' -->
+      <a href="/logout" class="btn btn-danger btn-sm">Cerrar sesión</a>
+      {{/if}}
     </div>
+  </div>
   <div class="container">
     <h1>Productos</h1>
     <h2>Lista de todos los productos</h2>
@@ -53,15 +57,16 @@
       </div>
       {{/each}}
     </div>
-    
+
     {{#if hasNextPage}}
     <a href="/products?page={{nextPage}}&limit=10" class="btn btn-primary">Siguiente</a>
     {{/if}}
-    
+
     {{#if hasPrevPage}}
     <a href="/products?page={{prevPage}}&limit=10" class="btn btn-primary">Anterior</a>
     {{/if}}
-    
+
   </div>
 </body>
+
 </html>

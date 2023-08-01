@@ -125,34 +125,6 @@ document.querySelectorAll('.update-quantity').forEach(form => {
     });
 });
 
-// Función para enviar los datos del formulario de registro al servidor
-async function registerUser(event) {
-    event.preventDefault();
 
-    const registerForm = document.getElementById('registerForm');
-    const formData = new FormData(registerForm);
 
-    try {
-        const response = await fetch('/auth/register-auth', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            // Si el registro es exitoso, redirige al usuario a la página de inicio de sesión
-            window.location.href = '/view/login';
-        } else {
-            // Si hay un error, muestra un mensaje de error en el formulario
-            const errorMessage = await response.text();
-            alert(errorMessage);
-        }
-    } catch (error) {
-        console.error('Error al enviar el formulario:', error);
-        alert('Error al enviar el formulario');
-    }
-}
-
-// Agrega un evento 'submit' al formulario de registro para llamar a la función registerUser
-const registerForm = document.getElementById('registerForm');
-registerForm.addEventListener('submit', registerUser);
 
