@@ -1,7 +1,9 @@
 const passport = require('passport');
+require('./localSerialization')
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
-const User = require('./src/dao/mongo/models/modelUsers');
+const User = require('../../dao/mongo/models/modelUsers');
+
 
 //Estrategia para Login
 
@@ -69,19 +71,8 @@ passport.use('register', new LocalStrategy(
 ));
 
 
-// Configurar las funciones de serialización y deserialización de Passport
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
 
-passport.deserializeUser((id, done) => {
-  User.findById(id)
-    .then((user) => {
-      done(null, user);
-    })
-    .catch((err) => {
-      done(err, null);
-    });
-});
+
+
 
 module.exports = passport;

@@ -15,7 +15,6 @@ routerSession.get('/view/register', (req, res) => {
 
 
 routerSession.get('/view/login', (req, res) => {
-  console.log('Messages en /view/login:', req.flash('error'));
   res.render('login', { messages: req.flash('error') });
 });
 
@@ -48,6 +47,12 @@ routerSession.get('/view/profile', ensureAuthenticated, (req, res) => {
     email: req.user.email,
     age: req.user.age,
     role: req.user.role
+  });
+});
+routerSession.get('/view/profileGit', async(req, res) => {
+  res.render('profileGit', {
+      username: req.user.username,
+      githubId: req.user.githubId
   });
 });
 
