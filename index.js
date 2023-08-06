@@ -4,7 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const flash = require('connect-flash');
 const session = require('express-session');
-const passport = require('passport'); 
+const passport = require('./src/config/passport/passport-config'); 
 const app = express();
 const http = require('http');
 const handlebars = require('express-handlebars');
@@ -14,17 +14,15 @@ const chatRouter = require('./src/routers/chat.router');
 const routerHome = require('./src/routers/home.router');
 const Chat = require('./src/dao/mongo/models/modelChat');
 const realTimeProductsRouter = require('./src/routers/realTimeProducts.router.js');
-const routerGit = require('./src/routers/github.router')
 const routerSession = require('./src/routers/session.router.js');
 const server = http.createServer(app);
 const Database = require('./db');
 const MongoStore = require('connect-mongo');
 
 
-
-// Se inicializa passport 
 require('./src/config/passport/github')
-require('./src/config/passport/passport-config')
+// Se inicializa passport 
+//require('./src/config/passport/passport-config')
 
 
 //Middelware Sesiones
@@ -93,12 +91,13 @@ app.use('/', routerHome);
 app.use('/chat', chatRouter);
 app.use('/products', productsRouter);
 app.use('/', routerSession);
-app.use('/auth', routerGit)
+app.use('/auth', routerSession)
 
 
 app.use(productsRouter);
 app.use(cartsRouter);
 app.use(chatRouter);
+
 
 //CHAT
 io.on('connection', (socket) => {

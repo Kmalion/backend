@@ -28,8 +28,9 @@
     <div class="profile-container">
       <h1>Ecommerce</h1> <!-- Título centrado -->
       {{#if userLoggedIn}}
-      <p>Bienvenido, {{ userLoggedIn.first_name }}!</p>
-      <p>Rol: {{ userLoggedIn.role }}</p> <!-- Verifica que el nombre de la propiedad sea 'role' -->
+      <p>Bienvenido, {{ userLoggedIn.first_name }}{{ userLoggedIn.username }}!</p>
+      <p>Rol: {{ userLoggedIn.role }}</p>
+      <p>Github ID: {{ userLoggedIn.githubId }}</p> <!-- Verifica que el nombre de la propiedad sea 'role' -->
       <a href="/logout" class="btn btn-danger btn-sm">Cerrar sesión</a>
       {{/if}}
     </div>

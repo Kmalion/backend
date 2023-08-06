@@ -1,5 +1,4 @@
 const passport = require('passport');
-require('./localSerialization')
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const User = require('../../dao/mongo/models/modelUsers');
@@ -70,9 +69,22 @@ passport.use('register', new LocalStrategy(
   }
 ));
 
+//////////////////// SERIALIZACION ///////////////
 
+passport.serializeUser((user, done) => {
+  // Serialize the user's ID
+  done(null, user._id);
+});
 
-
+passport.deserializeUser(async (id, done) => {
+  try {
+      // Deserialize the user by fetching from the database using the ID
+      const user = await User.findById(id);
+      done(null, user);
+  } catch (error) {
+      done(error);
+  }
+});
 
 
 module.exports = passport;

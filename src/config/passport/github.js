@@ -1,7 +1,6 @@
 const passport = require('passport');
-require('./gitSerialization');
 const { Strategy } = require('passport-github2');
-const GitUser = require('../../dao/mongo/models/modelGitUser');
+const User = require ('../../dao/mongo/models/modelUsers')
 
 passport.use(
     'auth-github',
@@ -15,11 +14,11 @@ passport.use(
             try {
                 if (profile && profile.username) {
                     // Busca el usuario en la base de datos por su ID de GitHub
-                    let gitUser = await GitUser.findOne({ githubId: profile.id });
+                    let gitUser = await User.findOne({ githubId: profile.id });
                     console.log(gitUser)
                     if (!gitUser) {
                         // Si el usuario no existe, crea uno nuevo
-                        gitUser = new GitUser({
+                        gitUser = new User({
                             githubId: profile.id,
                             username: profile.username,
                         });
@@ -42,5 +41,3 @@ passport.use(
             }
         })
 );
-
-module.exports = passport;

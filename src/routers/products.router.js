@@ -8,7 +8,7 @@ const routerSession = require('../routers/session.router')
 
 router.get('/products', async (req, res) => {
   try {
-      // Aquí agregamos la lógica para obtener el nombre del usuario en sesión y su rol
+      // Nobre de usuario y rol
       let userLoggedIn = {};
       if (req.user.email) {
           userLoggedIn = {
@@ -17,7 +17,12 @@ router.get('/products', async (req, res) => {
             email: req.user.email,
             age: req.user.age,
             role: req.user.role
-          };
+          }
+      } else {
+        userLoggedIn = {
+          username: req.user.username,
+          githubId: req.user.githubId,
+        }
       }
 // Agregar console.log para verificar los datos del usuario
 console.log("Datos del usuario en sesión:", userLoggedIn);
